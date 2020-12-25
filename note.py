@@ -113,6 +113,7 @@ def handle_file_markdown(fpath_src, dpath_dst):
              --to html
              --standalone
              --toc
+             --quiet
              --output={}
           '''.format(fpath_src, fpath_dst).strip()
     cmd = shlex.split(cmd)
