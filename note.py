@@ -36,7 +36,7 @@ def reformat_toc(toc_in):
         close = line.find('</a>')
         name = line[:close]
         name = level * 4 * '&nbsp;' + name
-        item = '<a {}>{}</a>\n'.format(href, name)
+        item = '    <a {}>{}</a>\n'.format(href, name)
         toc.append(item)
     return toc
 
@@ -49,24 +49,41 @@ def extract_title(title_line):
 
 
 def get_html_and_toc(fpath_dst):
-    body = []
+    main_div = []
     toc = []
-    put_in_body = True
-    #import pdb; pdb.set_trace()
+    put_in_body = False
+    put_in_toc = False
     title_line = ''
     for line in open(fpath_dst).readlines():
-        if line.startswith('<div id="TOC">'):
+        if put_in_toc and line.startswith('</div>'):
+            put_in_toc = False
+        elif line.startswith('<div id="TOC">'):
             put_in_body = False
-        if line.startswith('<h1 '):
+            put_in_toc = True
+        elif line.startswith('<h1 '):
             put_in_body = True
             title_line = line
+        elif line.startswith('</body>'):
+            put_in_body = False
+
         if put_in_body:
-            body.append(line)
+            main_div.append(line)
         else:
             toc.append(line)
     toc = reformat_toc(toc)
     title = extract_title(title_line)
-    return body, toc, title
+    toc[-1] = toc[-1].rstrip()  # remove the last '\n'
+    toc = toc[1:]  # remove the title
+    main_div[-1] = main_div[-1].rstrip()  # remove the last '\n'
+    '''
+    with open('main.html', 'w') as fp:
+        for line in main_div:
+            fp.write(line.strip() + '\n')
+    with open('toc.html', 'w') as fp:
+        for line in toc:
+            fp.write(line.strip() + '\n')
+    '''
+    return main_div, toc, title
 
 
 def customize_html(fpath_dst):
@@ -76,13 +93,13 @@ def customize_html(fpath_dst):
     #fpath_house_icon = os.path.join(dpath_static, 'img', '36451-gray-home-icon-vector.svg')
     fpath_house_icon = os.path.join(dpath_static, 'img', '36451-gray-home-icon-vector.png')
 
-    body, toc, title = get_html_and_toc(fpath_dst)
+    main_div, toc, title = get_html_and_toc(fpath_dst)
     html = open(os.path.join(dpath_template, 'from-markdown.html')).read()
-    html = html.replace('{{body}}', ''.join(body))
+    #import pdb; pdb.set_trace()
+    html = html.replace('{{main_div}}', ''.join(main_div))
     html = html.replace('{{toc}}', ''.join(toc))
     html = html.replace('{{css}}', fpath_css)
     html = html.replace('{{js}}', fpath_js)
-    html = html.replace('{{house-icon}}', fpath_house_icon)
     html = html.replace('{{home}}', fpath_home)
     html = html.replace('{{title}}', title)
     open(fpath_dst, 'w').write(html)
@@ -111,7 +128,7 @@ def handle_file_pdf(fpath_src, dpath_dst):
 
 def handle_file_ignore(fpath_src):
     """Handle a file that is ignored."""
-    print('ignore file:  {}'.format(fpath_src))
+    if verbose: print('ignore file:  {}'.format(fpath_src))
 
 
 class File():
@@ -124,24 +141,24 @@ class File():
         self.parentdirs = parentdirs
         self.name_src = name
         self.fpath_src = os.path.join(self.dpath_src, self.name_src)
-        print('File.__init__()')
-        print('    self.dpath_src:  {}'.format(self.dpath_src))
-        print('    self.dpath_dst:  {}'.format(self.dpath_dst))
-        print('    self.parentdirs:  {}'.format(self.parentdirs))
-        print('    self.name_src:  {}'.format(self.name_src))
-        print('    self.fpath_src:  {}'.format(self.fpath_src))
+        if verbose: print('File.__init__()')
+        if verbose: print('    self.dpath_src:  {}'.format(self.dpath_src))
+        if verbose: print('    self.dpath_dst:  {}'.format(self.dpath_dst))
+        if verbose: print('    self.parentdirs:  {}'.format(self.parentdirs))
+        if verbose: print('    self.name_src:  {}'.format(self.name_src))
+        if verbose: print('    self.fpath_src:  {}'.format(self.fpath_src))
         self.convert()
 
     def convert(self):
         if self.name_src.endswith('.md'):
-            print('File.convert()')
-            print('    self.fpath_src:  {}'.format(self.fpath_src))
-            print('    self.dpath_dst:  {}'.format(self.dpath_dst))
+            if verbose: print('File.convert()')
+            if verbose: print('    self.fpath_src:  {}'.format(self.fpath_src))
+            if verbose: print('    self.dpath_dst:  {}'.format(self.dpath_dst))
             self.name_dst = handle_file_markdown(self.fpath_src, self.dpath_dst)
         elif self.name_src.endswith('.pdf'):
             self.name_dst = handle_file_pdf(self.fpath_src, self.dpath_dst)
         else:
-            print('unhandled file type:  {}'.format(self.fpath_src))
+            if verbose: print('unhandled file type:  {}'.format(self.fpath_src))
             return
         self.fpath_dst = os.path.join(self.dpath_dst, self.name_dst)
 
@@ -181,8 +198,8 @@ class Dir():
 
     def populate(self):
         dir_to_list = os.path.join(self.dpath_src, self.name)
-        print('Dir.populate()')
-        print('    os.listdir({}):  {}'.format(dir_to_list, sorted(os.listdir(dir_to_list))))
+        if verbose: print('Dir.populate()')
+        if verbose: print('    os.listdir({}):  {}'.format(dir_to_list, sorted(os.listdir(dir_to_list))))
         for name in sorted(os.listdir(dir_to_list)):
             if self.ignore(name):
                 continue
@@ -191,14 +208,14 @@ class Dir():
                 parentdirs = self.parentdirs + [self.name]
             path = os.path.join(dir_to_list, name)
             if os.path.isdir(path):
-                print('Dir.populate()  isdir==True')
-                print('    parentdirs:  {}'.format(parentdirs))
-                print('    name:  {}'.format(name))
+                if verbose: print('Dir.populate()  isdir==True')
+                if verbose: print('    parentdirs:  {}'.format(parentdirs))
+                if verbose: print('    name:  {}'.format(name))
                 self.subdirs.append(Dir(parentdirs, name))
             elif os.path.isfile(path):
-                print('Dir.populate()  isfile==True')
-                print('    parentdirs:  {}'.format(parentdirs))
-                print('    name:  {}'.format(name))
+                if verbose: print('Dir.populate()  isfile==True')
+                if verbose: print('    parentdirs:  {}'.format(parentdirs))
+                if verbose: print('    name:  {}'.format(name))
                 self.files.append(File(parentdirs, name))
 
     def __str__(self):
@@ -249,15 +266,22 @@ def usage():
 
 
 def find_dpath_content():
+    """Find .../note-foo/content and return its path."""
     dname = 'note-'
+
+    # If `note` was called from note-foo root directory.
     cwd = os.getcwd()
+    if os.path.basename(cwd).startswith(dname) and 'content' in os.listdir(cwd):
+        return os.path.join(cwd, 'content')
+
+    # If `note` was called from deeper within note-foo.
+    names = cwd.split('/')
     while True:
-        for name in os.listdir(cwd):
-            if name.startswith(dname):
-                return os.path.join(cwd, name, 'content')
-        if cwd == '/':
+        if len(names) < 2:
             break
-        cwd = os.path.dirname(cwd)
+        if names[-2].startswith(dname) and names[-1] == 'content':
+            return os.path.join('/', '/'.join(names))
+        names[:] = names[:-1]
 
 
 def clean():
@@ -273,7 +297,6 @@ def clean():
 
 
 if __name__ == '__main__':
-    print('cwd:  {}'.format(os.getcwd()))
     verbose = False
     if len(sys.argv) < 2 or sys.argv[1] not in ('build', 'make', 'clean'):
         usage()

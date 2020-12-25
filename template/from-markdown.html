@@ -10,17 +10,16 @@
   <title>{{title}}</title>
 </head>
 <body onload="navSet()">
-    <div id="sidenav" class="sidenav">
-        <!--<button class="navButton" title="Decrease side-panel width." onclick="navDec()" type="button"><--</button>-->
-        <a class="navButton" title="Decrease side-panel width." onclick="navDec()"><--</a>
-        <a class="navButton" href="{{home}}">home</a>
-        <a class="navButton" title="Increase side-panel width." onclick="navInc()">--></a>
-        <h3>Table of Contents</h3>
-        {{toc}}
-    </div>
+<div id="sidenav" class="sidenav">
+    <a class="navButton" title="Decrease side-panel width." onclick="navDec()"><--</a>
+    <a class="navButton" href="{{home}}">home</a>
+    <a class="navButton" title="Increase side-panel width." onclick="navInc()">--></a>
+    <h3>Table of Contents</h3>
+{{toc}}
+</div>
 
-    <div id="main">
-        {{body}}
-    </div>
+<div id="main">
+{{main_div}}
+</div>
 </body>
 </html>
