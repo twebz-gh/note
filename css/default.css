@@ -1,0 +1,129 @@
+body {
+    background-color: #000;
+    color: #aaa;
+    font-family: sans-serif;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+
+h1 { text-align: center; }
+h2 { border-style: none none solid none; }
+h3 {
+    border-style: none none solid none;
+    border-color: #dddddd;
+    border-width: 1px;
+}
+
+blockquote, p {
+    margin-bottom: 0.4em;
+    line-height: 1em;
+}
+
+ul, ol, dl {
+    margin-bottom: 0.4em;
+    line-height: 1em;
+}
+
+/* .codeblock, pre.literal-block, .rst-content .literal-block, .rst-content pre.literal-block, div[class^='highlight'] {
+    margin: 1px 0 1px 0;
+    background: #fff6e0;
+} */
+
+/*span.pre {
+    color: #000000;
+}*/
+
+code {
+    color: #fff;
+    font-size: 120%;
+}
+
+pre code {
+    background-color: #222;
+    display: block;
+}
+
+/*code.docutils {
+    margin: none;
+    border: none;
+    padding: none;
+}*/
+
+/*div[class^='highlight'] pre {
+    padding: 2px 6px;
+}*/
+
+#random {
+    color: #888888;
+}
+
+
+/******************************************************************************/
+/********* SIDE NAVIGATION ****************************************************/
+
+ /* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 250px; /* change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* in front */
+    top: 0; /* at top */
+    left: 0;
+    background-color: #111; /* dark gray*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 4px; /* Place content 60px from the top */
+    transition: 0.2s; /* seconds transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a.navButton {
+    padding: 10px 15px 10px 15px;
+    border-width: 1px;
+    border-color: #aaa;
+    border-style: solid;
+    border-radius: 0.5em;
+    font-family: monospace;
+    font-size: 120%;
+    color: #aaa;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* The table-of-contents links*/
+.sidenav a {
+    display: block;
+    font-family: monospace;
+    font-size: 120%;
+    text-decoration: none;
+    color: #aaa;
+    white-space: pre;  /* Don't wrap long lines. */
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+.sidenav h3 {
+    border-style: none;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+/*.navButton {
+    background-color: #000;
+    color: #888;
+    border-color: #333;
+}*/
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    margin-left: 250px;
+    transition: margin-left .2s;
+    padding: 20px;
+}
+

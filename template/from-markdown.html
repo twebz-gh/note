@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="{{css}}">
+  <script src="{{js}}"></script>
+  <title>{{title}}</title>
+</head>
+<body onload="navSet()">
+    <div id="sidenav" class="sidenav">
+        <!--<button class="navButton" title="Decrease side-panel width." onclick="navDec()" type="button"><--</button>-->
+        <a class="navButton" title="Decrease side-panel width." onclick="navDec()"><--</a>
+        <a class="navButton" href="{{home}}">home</a>
+        <a class="navButton" title="Increase side-panel width." onclick="navInc()">--></a>
+        <h3>Table of Contents</h3>
+        {{toc}}
+    </div>
+
+    <div id="main">
+        {{body}}
+    </div>
+</body>
+</html>
