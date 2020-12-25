@@ -15,6 +15,6 @@ cp js/default.js ~/.local/config/note/js/
 cp template/from-markdown.html ~/.local/config/note/template/
 cp template/index.html ~/.local/config/note/template/
 
-cp install.sh pseudocode.md Readme.md ~/.local/config/note/
+cp install.sh pseudocode.md README.md ~/.local/config/note/
 
 
