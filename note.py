@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 """
-Copied from ~/doc/sphinx/doc/replace-index-pages.py
-Modify that to create the index.html, and along the way, convert
-the files in doc/ to output files in build/.
+Catalog the note src dir tree to create index.html.
+Along the way, convert input files to output files.
 """
 
 import os
@@ -10,6 +9,18 @@ import shlex
 import shutil
 import subprocess
 import sys
+
+
+def get_pandoc_major_version():
+    cmd = 'pandoc --version'
+    cmd = shlex.split(cmd)
+    stdout = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, text=True).stdout
+    stdout = stdout.split('\n')[0]
+    stdout = stdout.split(' ')[1]
+    stdout = stdout.split('.')[0]
+    major_version = int(stdout)
+    #import pdb; pdb.set_trace()
+    return major_version
 
 
 def reformat_toc(toc_in):
@@ -87,15 +98,8 @@ def get_html_and_toc(fpath_dst):
 
 
 def customize_html(fpath_dst):
-    fpath_home = os.path.join(dpath_build, 'index.html')
-    fpath_css = os.path.join(dpath_static, 'css', 'default.css')
-    fpath_js = os.path.join(dpath_static, 'js', 'default.js')
-    #fpath_house_icon = os.path.join(dpath_static, 'img', '36451-gray-home-icon-vector.svg')
-    fpath_house_icon = os.path.join(dpath_static, 'img', '36451-gray-home-icon-vector.png')
-
     main_div, toc, title = get_html_and_toc(fpath_dst)
     html = open(os.path.join(dpath_template, 'from-markdown.html')).read()
-    #import pdb; pdb.set_trace()
     html = html.replace('{{main_div}}', ''.join(main_div))
     html = html.replace('{{toc}}', ''.join(toc))
     html = html.replace('{{css}}', fpath_css)
@@ -106,16 +110,20 @@ def customize_html(fpath_dst):
 
 
 def handle_file_markdown(fpath_src, dpath_dst):
+    global pandoc_major_version
     fname_dst = os.path.basename(fpath_src).replace('.md', '.html')
     fpath_dst = os.path.join(dpath_dst, fname_dst)
+    if not pandoc_major_version:
+        pandoc_major_version = get_pandoc_major_version()
     cmd = '''pandoc {}
              --from markdown
              --to html
              --standalone
              --toc
-             --quiet
              --output={}
           '''.format(fpath_src, fpath_dst).strip()
+    if pandoc_major_version and pandoc_major_version >= 2:
+        cmd += ' --quiet'
     cmd = shlex.split(cmd)
     subprocess.call(cmd)
     customize_html(fpath_dst)
@@ -134,7 +142,7 @@ def handle_file_ignore(fpath_src):
 
 class File():
     def __init__(self, parentdirs, name):
-        self.dpath_src = dpath_content
+        self.dpath_src = dpath_src_root
         self.dpath_dst = dpath_build
         for pd in parentdirs:
             self.dpath_src = os.path.join(self.dpath_src, pd)
@@ -180,7 +188,7 @@ class File():
 
 class Dir():
     def __init__(self, parentdirs=[], name=''):
-        self.dpath_src = dpath_content
+        self.dpath_src = dpath_src_root
         self.dpath_dst = dpath_build
         for pd in parentdirs:
             self.dpath_src = os.path.join(self.dpath_src, pd)
@@ -245,17 +253,17 @@ class Dir():
 
 
 def build():
-    # read the directory tree for dirs and files we care about
+    # Read the directory tree for dirs and files we care about.
     tree = Dir()
-    # generate html for the relevant dirs and files
+    # Generate html for the relevant dirs and files.
     content = tree.html()
 
-    # read the template file and add in the generated table-of-contents
+    # Read the template file and add in the generated table-of-contents.
     fpath_index_template = os.path.join(dpath_template, 'index.html')
     html = open(fpath_index_template).read()
     html = html.replace('{{content}}', content)
 
-    # write out the result
+    # Write out the result.
     fpath_out = os.path.join(dpath_build, 'index.html')
     open(fpath_out, 'w').write(html)
 
@@ -266,53 +274,53 @@ def usage():
     print(usage)
 
 
-def find_dpath_content():
-    """Find .../note-foo/content and return its path."""
-    dname = 'note-'
-
-    # If `note` was called from note-foo root directory.
-    cwd = os.getcwd()
-    if os.path.basename(cwd).startswith(dname) and 'content' in os.listdir(cwd):
-        return os.path.join(cwd, 'content')
-
-    # If `note` was called from deeper within note-foo.
-    names = cwd.split('/')
-    while True:
-        if len(names) < 2:
-            break
-        if names[-2].startswith(dname) and names[-1] == 'content':
-            return os.path.join('/', '/'.join(names))
-        names[:] = names[:-1]
+def find_dpath_note_root():
+    """Find .noteignore closest to '/' in path of cwd return its absolute path."""
+    dpath = '/'
+    dnames = [] + os.getcwd().split('/')
+    for dname in dnames:
+        dpath = os.path.join(dpath, dname)
+        if '.noteignore' in os.listdir(dpath):
+            if verbose:
+                print('dpath_note_root:  {}'.format(dpath))
+            return dpath
 
 
 def clean():
+    """Delete build directory."""
     txt = 'rm -r {}/*'.format(dpath_build)
-    if not dpath_build.endswith('build') and 'note-' not in dpath_build:
-        raise Exception('abort call:  {}'.format(txt))
+    if not dpath_build.endswith('.build'):
+        raise Exception('target path does not end with ".build", abort call:  {}'.format(txt))
     for name in os.listdir(dpath_build):
         # Use this way of constructing the path-to-be-deleted to ensure that
         # only items under a 'build/' are deleted.
-        path = os.path.join(os.path.dirname(dpath_build), 'build', name)
+        path = os.path.join(os.path.dirname(dpath_build), '.build', name)
         cmd = shlex.split('rm -r {}'.format(path))
         subprocess.call(cmd)
 
 
 if __name__ == '__main__':
-    verbose = False
     if len(sys.argv) < 2 or sys.argv[1] not in ('build', 'make', 'clean'):
         usage()
         exit()
+
+    verbose = False
     if '-v' in sys.argv:
         verbose = True
 
-    dpath_content = find_dpath_content()
-    if not dpath_content:
-        print('content directory for "note" not found')
+    pandoc_major_version = None
+    dpath_src_root = find_dpath_note_root()
+    if not dpath_src_root:
+        print('".noteignore" not found')
         exit()
-    dpath_build = os.path.join(os.path.dirname(dpath_content), 'build')
+    dpath_build = os.path.join(dpath_src_root, '.build')
     home = os.environ['HOME']
     dpath_static = os.path.join(home, '.local/config/note')
     dpath_template = os.path.join(dpath_static, 'template')
+    fpath_home = os.path.join(dpath_build, 'index.html')
+    fpath_css = os.path.join(dpath_static, 'css', 'default.css')
+    fpath_js = os.path.join(dpath_static, 'js', 'default.js')
+    fpath_house_icon = os.path.join(dpath_static, 'img', '36451-gray-home-icon-vector.png')
 
     if sys.argv[1] in ('build', 'make'):
         build()

@@ -3,15 +3,15 @@
 
 `$ note build`
 ```
-content root = search for content root
-mkdir build
-tree = create a tree of dirs and files under 'content'
-for sub-directory in content root
+src_root = find highest level dir containing .noteignore
+mkdir src_root/.build
+tree = create a tree of the dirs and files that are in src_root
+for sub_directory in src_root
     ignore_globals, ignore-local = load ignore files
-    for src in `content/'  # ignore hidden files
+    for src in sub_directory  # ignore hidden files
         if src is in files-to-ignore
             continue
-        calc corresponding dst in `build/`
+        calc corresponding dst in `.build/`
         if dst is newer than src
             continue
         if src name ends with `.md`
@@ -21,7 +21,7 @@ for sub-directory in content root
 ```
 
 
-handle_markdown_file:
+handle markdown file:
 ```
 convert src to dst
 get body and toc from dst
