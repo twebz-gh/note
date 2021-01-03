@@ -64,6 +64,8 @@ Then `note` will delete the contents of `.build/`.
 In each directory, in a file named `.noteignore` you can add one filename per line.
 Then `note` will ignore those filenames for that directory.
 
+For a git-like syntax for ignores, see github `bitranox/igittigitt`.  As of 2021-01, that was a more supported clone of `mherrmann/gitignore_parser`.
+
 
 ## Development
 

@@ -22,7 +22,6 @@ def get_pandoc_major_version():
     stdout = stdout.split(' ')[1]
     stdout = stdout.split('.')[0]
     major_version = int(stdout)
-    #import pdb; pdb.set_trace()
     return major_version
 
 
@@ -86,9 +85,12 @@ def get_html_and_toc(fpath_dst):
             toc.append(line)
     toc = reformat_toc(toc)
     title = extract_title(title_line)
-    toc[-1] = toc[-1].rstrip()  # remove the last '\n'
-    toc = toc[1:]  # remove the title
-    main_div[-1] = main_div[-1].rstrip()  # remove the last '\n'
+    #import pdb; pdb.set_trace()
+    if toc:
+        toc[-1] = toc[-1].rstrip()  # remove the last '\n'
+        toc = toc[1:]  # remove the title
+    if main_div:
+        main_div[-1] = main_div[-1].rstrip()  # remove the last '\n'
     '''
     with open('main.html', 'w') as fp:
         for line in main_div:
@@ -119,7 +121,7 @@ def handle_file_markdown(fpath_src, dpath_dst):
     if not pandoc_major_version:
         pandoc_major_version = get_pandoc_major_version()
     cmd = '''pandoc {}
-             --from markdown
+             --from markdown+superscript
              --to html
              --standalone
              --toc
