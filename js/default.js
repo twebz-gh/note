@@ -1,7 +1,7 @@
 /* Set the initial width of the left navigation panel. */
 function navSet() {
     document.getElementById("sidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
+    document.getElementById("main").style.marginLeft = "270px";
 }
 
 /* Increase the width of the left navigation panel. */
@@ -13,9 +13,11 @@ function navInc() {
     if (widthNew > widthMaximum) {
         widthNew = widthMaximum;
     }
+    marginNew = widthNew + 20;
+    marginNew = marginNew + "px";
     widthNew = widthNew + "px";
     document.getElementById("sidenav").style.width = widthNew;
-    document.getElementById("main").style.marginLeft = widthNew;
+    document.getElementById("main").style.marginLeft = marginNew;
 }
 
 /* Decrease the width of the left navigation panel. */
@@ -27,7 +29,9 @@ function navDec() {
     if (widthNew < widthMinimum) {
         widthNew = widthMinimum;
     }
+    marginNew = widthNew + 20;
+    marginNew = marginNew + "px";
     widthNew = widthNew + "px";
     document.getElementById("sidenav").style.width = widthNew;
-    document.getElementById("main").style.marginLeft = widthNew;
+    document.getElementById("main").style.marginLeft = marginNew;
 }

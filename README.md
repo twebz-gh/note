@@ -74,11 +74,16 @@ For a git-like syntax for ignores, see github `bitranox/igittigitt`.  As of 2021
 Imagine a bookmark folder that you put in the bookmark bar near the top of your browser.
 Let `note build` update one link in that folder to link to the current doc tree.
 
-Implement `git`-style `ignore` specification.
+For ignore functionality, choose one of:
+
+- `git`-style ignore specification
+- a simpler, matching scheme that I implement in Python
 
 Handle `.rst` files.
 
 Implement user override for `css`, and `js`.
 
 Only build files that are out of date.
+
+When I save a markdown file in vim, have it trigger a `note build` just for that file.
 

@@ -9,6 +9,7 @@ mkdir -p ~/.local/config/note/template
 cp note.py ~/.local/bin/note
 
 cp css/default.css ~/.local/config/note/css/
+cp css/index-default.css ~/.local/config/note/css/
 cp img/36451-gray-home-icon-vector.svg ~/.local/config/note/img/
 cp js/default.js ~/.local/config/note/js/
 

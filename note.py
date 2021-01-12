@@ -208,6 +208,8 @@ class Dir():
     def ignore(self, fname):
         if fname[0] in '._':
             return True
+        if fname.startswith('artifacts-develop-'):  #TODO rm this when proper ignore functionality is implemented
+            return True
         #TODO handle other types of ignores
 
     def populate(self):
@@ -266,6 +268,7 @@ def build():
     # Read the template file and add in the generated table-of-contents.
     fpath_index_template = os.path.join(dpath_template, 'index.html')
     html = open(fpath_index_template).read()
+    html = html.replace('{{css}}', fpath_index_css)
     html = html.replace('{{content}}', content)
 
     # Write out the result.
@@ -324,6 +327,7 @@ if __name__ == '__main__':
     dpath_template = os.path.join(dpath_static, 'template')
     fpath_home = os.path.join(dpath_build, 'index.html')
     fpath_css = os.path.join(dpath_static, 'css', 'default.css')
+    fpath_index_css = os.path.join(dpath_static, 'css', 'index-default.css')
     fpath_js = os.path.join(dpath_static, 'js', 'default.js')
     fpath_house_icon = os.path.join(dpath_static, 'img', '36451-gray-home-icon-vector.png')
 

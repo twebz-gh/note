@@ -1,7 +1,7 @@
 body {
     background-color: #000;
     color: #aaa;
-    font-family: sans-serif;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 }
 
 h1, h2, h3, h4 {
@@ -30,18 +30,10 @@ ul, ol, dl {
     line-height: 1em;
 }
 
-/* .codeblock, pre.literal-block, .rst-content .literal-block, .rst-content pre.literal-block, div[class^='highlight'] {
-    margin: 1px 0 1px 0;
-    background: #fff6e0;
-} */
-
-/*span.pre {
-    color: #000000;
-}*/
-
 code {
     color: #fff;
-    font-size: 120%;
+    font-size: 100%;
+    font-family: consolas, monospace;
 }
 
 pre code {
@@ -49,19 +41,14 @@ pre code {
     display: block;
 }
 
-/*code.docutils {
-    margin: none;
-    border: none;
-    padding: none;
-}*/
+a { text-decoration: none; } /* dont underline links */
 
-/*div[class^='highlight'] pre {
-    padding: 2px 6px;
-}*/
-
-#random {
-    color: #888888;
-}
+/* So links in the main page are not too dark. */
+#main a         { color: #aaaaff; }
+#main a:link    { color: #aaaaff; }
+#main a:visited { color: #aaaaff; }
+#main a:hover   { color: #ccaaff; }
+#main a:active  { color: #aaaaff; }
 
 
 /******************************************************************************/
@@ -70,14 +57,15 @@ pre code {
  /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
-    width: 250px; /* change this with JavaScript */
+    /*width: 250px; /* change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* in front */
     top: 0; /* at top */
     left: 0;
     background-color: #111; /* dark gray*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 4px; /* Place content 60px from the top */
+    padding-left: 10px;;
+    padding-top: 10px;
     transition: 0.2s; /* seconds transition effect to slide in the sidenav */
 }
 
@@ -98,8 +86,6 @@ pre code {
 /* The table-of-contents links*/
 .sidenav a {
     display: block;
-    /*font-family: monospace;*/
-    /*font-size: 120%;*/
     text-decoration: none;  /* don't underline links */
     color: #aaa;
     white-space: pre;  /* Don't wrap long lines. */
@@ -118,16 +104,14 @@ pre code {
     margin-bottom: 1em;
 }
 
-/*.navButton {
-    background-color: #000;
-    color: #888;
-    border-color: #333;
-}*/
-
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+/* Push page content to the right to make room for the side navigation */
 #main {
-    margin-left: 250px;
-    transition: margin-left .2s;
     padding: 20px;
+    border-color: #333;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.5em;
+    transition: margin-left .2s;
+    /*margin-left: 270px; /* change this with JavaScript */
 }
 
