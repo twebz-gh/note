@@ -9,12 +9,13 @@ For '.deb' based linux:  `apt install pandoc`.
 Get the source and install:
 ```bash
 $ cd
-$ mkdir -p app/note
-$ cd note
+$ mkdir app
+$ cd app
 $ git clone <url>
 $ cd note
 $ ./install.sh
 ```
+After this, you may need to logout/login to get `~/.local/bin` in your PATH.
 
 
 ## Usage
@@ -35,7 +36,7 @@ note-hobby/
         umx-radian.md
         delta-ray.md
     food/
-        lasagne.md
+        lasagna.md
         brats-n-kraut.md
         brown-butter.md
 ```
@@ -71,7 +72,7 @@ For a git-like syntax for ignores, see github `bitranox/igittigitt`.  As of 2021
 
 ### todo
 
-Imagine a bookmark folder that you put in the bookmark bar near the top of your browser.
+Imagine a bookmark folder that you put in the bookmark bar near the top of your browser.  
 Let `note build` update one link in that folder to link to the current doc tree.
 
 For ignore functionality, choose one of:
@@ -86,4 +87,9 @@ Implement user override for `css`, and `js`.
 Only build files that are out of date.
 
 When I save a markdown file in vim, have it trigger a `note build` just for that file.
+
+implement `build show`.  
+Detect appropriate browser and open `.build/index.html` in a new tab.
+
+Set a default width for the main div.  Provide arrow buttons to adjust it.
 
