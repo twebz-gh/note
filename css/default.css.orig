@@ -1,13 +1,12 @@
 body {
     background-color: #000;
-    color: #b80;
+    color: #aaa;
     font-family: 'Ubuntu', sans-serif;
 }
 
 h1, h2, h3, h4 {
     margin-top: 0.5em;
     margin-bottom: 0.1em;
-    color: #bbb;
 }
 
 h1 { text-align: center; }
@@ -32,7 +31,7 @@ ul, ol, dl {
 }
 
 code {
-    color: #3a3;
+    color: #eee;
     font-size: 100%;
     font-family: monospace;
 }
@@ -45,11 +44,11 @@ pre code {
 a { text-decoration: none; } /* dont underline links */
 
 /* So links in the main page are not too dark. */
-#main a         { color: #79f; }
-#main a:link    { color: #79f; }
-#main a:visited { color: #79f; }
-#main a:hover   { color: #9bf; }
-#main a:active  { color: #79f; }
+#main a         { color: #aaaaff; }
+#main a:link    { color: #aaaaff; }
+#main a:visited { color: #aaaaff; }
+#main a:hover   { color: #ccaaff; }
+#main a:active  { color: #aaaaff; }
 
 
 /******************************************************************************/
@@ -74,12 +73,12 @@ a { text-decoration: none; } /* dont underline links */
 .sidenav a.navButton {
     padding: 10px 15px 10px 15px;
     border-width: 1px;
-    border-color: #bbb;
+    border-color: #aaa;
     border-style: solid;
     border-radius: 0.5em;
     font-family: monospace;
     font-size: 120%;
-    color: #bbb;
+    color: #aaa;
     display: inline-block;
     vertical-align: top;
 }
@@ -88,7 +87,7 @@ a { text-decoration: none; } /* dont underline links */
 .sidenav a {
     display: block;
     text-decoration: none;  /* don't underline links */
-    color: #bbb;
+    color: #aaa;
     white-space: pre;  /* Don't wrap long lines. */
     line-height: 1.3;
 }
