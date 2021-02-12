@@ -22,24 +22,28 @@ h3 {
 }
 
 blockquote, p {
-    margin-bottom: 0.4em;
     line-height: 1em;
+    margin-bottom: 0.4em;
 }
 
 ul, ol, dl {
-    margin-bottom: 0.4em;
     line-height: 1em;
+    margin-bottom: 0.4em;
 }
 
 code {
     color: #3a3;
-    font-size: 100%;
     font-family: monospace;
+    font-size: 100%;
 }
 
 pre code {
-    background-color: #222;
+    background-color: #111;
+    border-color: #222;
+    border-style: solid;
+    border-width: thin;
     display: block;
+    padding: 0.1em 0.5em;
 }
 
 a { text-decoration: none; } /* dont underline links */
@@ -57,17 +61,17 @@ a { text-decoration: none; } /* dont underline links */
 
  /* The side navigation menu */
 .sidenav {
-    height: 100%; /* 100% Full-height */
-    /*width: 250px; /* change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* in front */
-    top: 0; /* at top */
-    left: 0;
     background-color: #111; /* dark gray*/
+    height: 100%; /* 100% Full-height */
+    left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-left: 10px;;
     padding-top: 10px;
-    transition: 0.2s; /* seconds transition effect to slide in the sidenav */
+    position: fixed; /* Stay in place */
+    top: 0; /* at top */
+    /*transition: 0.2s; /* seconds transition effect to slide in the sidenav */
+    /*width: 250px; /* change this with JavaScript */
+    z-index: 1; /* in front */
 }
 
 /* The navigation menu links */
@@ -112,7 +116,7 @@ a { text-decoration: none; } /* dont underline links */
     border-style: solid;
     border-width: 1px;
     border-radius: 0.5em;
-    transition: margin-left .2s;
+    /*transition: margin-left .2s; */
     /*margin-left: 270px; /* change this with JavaScript */
 }
 
