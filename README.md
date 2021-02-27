@@ -15,7 +15,7 @@ $ git clone <url>
 $ cd note
 $ ./install.sh
 ```
-After this, you may need to logout/login to get `~/.local/bin` in your PATH.
+This installs to `~/.local/bin`.  Make sure that directory is in your PATH.
 
 
 ## Usage
@@ -72,9 +72,6 @@ For a git-like syntax for ignores, see github `bitranox/igittigitt`.  As of 2021
 
 ### todo
 
-Imagine a bookmark folder that you put in the bookmark bar near the top of your browser.  
-Let `note build` update one link in that folder to link to the current doc tree.
-
 For ignore functionality, choose one of:
 
 - `git`-style ignore specification
@@ -84,12 +81,5 @@ Handle `.rst` files.
 
 Implement user override for `css`, and `js`.
 
-Only build files that are out of date.
-
-When I save a markdown file in vim, have it trigger a `note build` just for that file.
-
-implement `build show`.  
+implement `note build show`.  
 Detect appropriate browser and open `.build/index.html` in a new tab.
-
-Set a default width for the main div.  Provide arrow buttons to adjust it.
-
