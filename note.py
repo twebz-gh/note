@@ -103,15 +103,16 @@ def build():
 
 
 def get_timestamps():
-    """Get the most recent timestamps for select files.
+    """Get the modification timestamps for select files.
 
     These are used to determine whether an output file is out of date.
     """
-    cfg.ts_index = max([os.path.getmtime(cfg.fpath_template_index),
-                        os.path.getmtime(cfg.fpath_css_index)])
     cfg.ts_general = max([os.path.getmtime(cfg.fpath_css),
                           os.path.getmtime(cfg.fpath_js)])
     cfg.ts_markdown = max([cfg.ts_general, os.path.getmtime(cfg.fpath_template_markdown)])
+    # Would these ever be used?:
+    #cfg.ts_index = max([os.path.getmtime(cfg.fpath_template_index),
+    #                    os.path.getmtime(cfg.fpath_css_index)])
 
 
 def clean():

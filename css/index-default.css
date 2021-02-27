@@ -1,8 +1,7 @@
 body {
     background-color: #000;
     color: #aaa;
-    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
-    font-size: smaller;
+    font-family: consolas, monospace;
 }
 
 /* So links in the main page are not too dark. */
