@@ -8,11 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <!-- Ubuntu font weights:  light 300, regular 400, medium 500, bold 700 -->
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap" rel="stylesheet">
+  <!-- Ubuntu mono has:  regular 400, regular 400 italic, bold 700, bold 700 italic -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{css}}">
   <script src="{{js}}"></script>
   <title>{{title}}</title>
 </head>
 <body onload="navSet()">
+
 <div id="sidenav" class="sidenav">
     <a class="navButton" title="Decrease side-panel width." onclick="navDec()"><--</a>
     <a class="navButton" href="{{index_page}}">home</a>
@@ -24,5 +27,6 @@
 <div id="main">
 {{main_div}}
 </div>
+
 </body>
 </html>

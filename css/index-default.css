@@ -1,13 +1,13 @@
 body {
     background-color: #000;
     color: #aaa;
-    font-family: consolas, monospace;
+    font-family: 'Ubuntu Mono', consolas, monospace;
 }
 
 /* So links in the main page are not too dark. */
 a {
     color: #aaaaff;
-    font-family: consolas, monospace;
+    font-family: 'Ubuntu Mono', consolas, monospace;
 }
 a:link    { color: #aaaaff; }
 a:visited { color: #aaaaff; }

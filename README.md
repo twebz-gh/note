@@ -72,14 +72,24 @@ For a git-like syntax for ignores, see github `bitranox/igittigitt`.  As of 2021
 
 ### todo
 
-For ignore functionality, choose one of:
+Fix pandoc bug:  some lines in code block are incorrectly translated to html <a>nchors.
 
-- `git`-style ignore specification
-- a simpler, matching scheme that I implement in Python
+Increase levels in TOC from 2 to 4.
+
+Add ignore functionality.  
+Choose one of:
+```
+git-style ignore specification
+a simpler, matching scheme that I implement in Python
+```
+
+Syntax highlighting.
 
 Handle `.rst` files.
 
 Implement user override for `css`, and `js`.
 
-implement `note build show`.  
-Detect appropriate browser and open `.build/index.html` in a new tab.
+Implement `note build show [file]`, or `note show [file]`?:  
+Detect appropriate browser and open `.build/index.html`, or `file.html` in a new tab.
+
+Compatible w Python 2?
