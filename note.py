@@ -29,7 +29,12 @@ class Dir():
         self.name = name
         self.subdirs = []
         self.files = []
-        os.makedirs(os.path.join(self.dpath_dst, self.name), exist_ok=True)
+        # To accommodate Python 2, don't use exists_ok param to os.makedirs.
+        #os.makedirs(os.path.join(self.dpath_dst, self.name), exist_ok=True)
+        try:
+            os.makedirs(os.path.join(self.dpath_dst, self.name))
+        except OSError:
+            pass
         self.populate()
 
     def ignore(self, fname):

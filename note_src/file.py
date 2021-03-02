@@ -41,7 +41,9 @@ Python 3.8.5
 def get_pandoc_major_version():
     cmd = 'pandoc --version'
     cmd = shlex.split(cmd)
-    if sys.version_info >= (3, 7):
+    if sys.version_info < (3, 0):
+        stdout = subprocess.check_output(cmd)
+    elif sys.version_info >= (3, 7):
         stdout = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, text=True).stdout
     else:
         stdout = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, universal_newlines=True).stdout
