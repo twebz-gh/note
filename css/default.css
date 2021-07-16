@@ -131,3 +131,13 @@ a { text-decoration: none; } /* dont underline links */
     /*margin-left: 270px; /* change this with JavaScript */
 }
 
+/* For tables */
+table {
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #888;
+    padding: 5px;
+}
+
